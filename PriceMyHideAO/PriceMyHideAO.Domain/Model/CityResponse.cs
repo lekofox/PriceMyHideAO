@@ -10,6 +10,6 @@ namespace PriceMyHideAO.Domain.Model
     {
         public string Item { get; set; }
         public string City { get; set; }
-        public Prices Prices { get; set; }
+        public int Price { get; set; }
     }
 }
