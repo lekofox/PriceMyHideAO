@@ -55,6 +55,13 @@ namespace PriceMyHideAO.Domain.Model
                     RefinedMatId = "T6_LEATHER_LEVEL1@1";
                     RawMatId = "T7_HIDE_LEVEL1@1";
                     break;
+                
+                case LeatherTiers.T7_LEATHER:
+                    ProductName = "T7_LEATHER";
+                    RawQuantity = 5;
+                    RefinedMatId = "T6_LEATHER";
+                    RawMatId = "T7_HIDE";
+                    break;
 
                 case LeatherTiers.T7_LEATHER_LEVEL2_2:
                     ProductName = "T7_LEATHER_LEVEL2@2";

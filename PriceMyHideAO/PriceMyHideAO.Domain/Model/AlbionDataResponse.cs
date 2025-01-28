@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace PriceMyHideAO.Domain.Model
 {
+
     public class AlbionDataResponse
     {
+        private ItemList _itemList = new ItemList();
+
         public string item_id { get; set; }
         public string city { get; set; }
         public int quality { get; set; }
@@ -25,6 +28,7 @@ namespace PriceMyHideAO.Domain.Model
 
     public static class AlbionDataResponseExtensions
     {
+        private static readonly ItemList _itemList = new ItemList();
         public static AlbionDataDTO MapToCityResponse(this List<AlbionDataResponse> albionDataResponse, Recipe recipe)
         {
             var sellCity = albionDataResponse.FindBestCityToSell(recipe.ProductName);
@@ -52,7 +56,7 @@ namespace PriceMyHideAO.Domain.Model
 
             foreach (var itemResponse in filteredResponse)
             {
-                if (itemResponse.sell_price_min > result.Price)
+                if ((itemResponse.sell_price_min > result.Price) && _itemList.Locations.Exists(city => city == itemResponse.city))
                 {
                     result.City = itemResponse.city;
                     result.Price = itemResponse.sell_price_min;
@@ -75,7 +79,7 @@ namespace PriceMyHideAO.Domain.Model
 
             foreach (var itemResponse in rawMat)
             {
-                if (itemResponse.sell_price_min < result[0].Price && itemResponse.sell_price_min != 0)
+                if (itemResponse.sell_price_min < result[0].Price && itemResponse.sell_price_min != 0 && _itemList.Locations.Exists(city => city == itemResponse.city))
                 {
                     result[0].City = itemResponse.city;
                     result[0].Price = itemResponse.sell_price_min;
@@ -84,7 +88,7 @@ namespace PriceMyHideAO.Domain.Model
 
             foreach (var itemResponse in refinedMat)
             {
-                if (itemResponse.sell_price_min < result[1].Price && itemResponse.sell_price_min != 0)
+                if (itemResponse.sell_price_min < result[1].Price && itemResponse.sell_price_min != 0 && _itemList.Locations.Exists(city => city == itemResponse.city))
                 {
                     result[1].City = itemResponse.city;
                     result[1].Price = itemResponse.sell_price_min;
